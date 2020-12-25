@@ -464,7 +464,32 @@ def page_pengaturanAkun_gPassword(data, email):
 		return
 
 def page_pengaturanAkun_gEmail(data, email):
-	pass
+	global filename
+
+	os.system("cls")
+	printHeader()
+	print("============== Ganti Email ==============")
+	print('Tekan CTRL + C untuk membatalkan')
+	try:
+		while True:
+			emailBaru = input("{:<26} : ".format('Email baru'))
+			if emailBaru in data:
+				print("Email telah digunakan. Silahkan cari yang berbeda.")
+				continue
+			konfirmasiEmailBaru = input("{:<26} : ".format('Konfirmasi Email baru'))
+			if emailBaru == konfirmasiEmailBaru:
+				data[emailBaru] = data[email]
+				del data[email]
+				writeJSON(data, filename)
+				print("Email berhasil diperbarui.")
+				input('(tekan enter untuk kembali)')
+				return emailBaru
+			else:
+				print("Email tidak sama.")
+	except KeyboardInterrupt:
+		print("Ganti email dibatalkan.")
+		input('(tekan enter untuk kembali)')
+		return email
 
 def page_pengaturanAkun_hAkun(data, email):
 	pass
@@ -494,11 +519,13 @@ def page_pengaturanAkun(data, email):
 		elif pilihan == '2':
 			page_pengaturanAkun_gPassword(data, email)
 		elif pilihan == '3':
-			page_pengaturanAkun_gEmail(data, email)
+			email = page_pengaturanAkun_gEmail(data, email)
 		elif pilihan == '4':
 			page_pengaturanAkun_hAkun(data, email)
 		elif pilihan == '0':
-			return
+			return email
+		else:
+			print("Input tidak valid.")
 
 def mainMenu(data, email):
 	while True:
@@ -523,7 +550,8 @@ def mainMenu(data, email):
 		elif pilihan == '3':
 			page_data_transaksi(data, email)
 		elif pilihan == '4':
-			page_pengaturanAkun(data, email)
+			#we need to monitor email changes
+			email = page_pengaturanAkun(data, email)
 		elif pilihan == '0':
 			return
 		else:
