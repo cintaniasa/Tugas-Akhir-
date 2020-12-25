@@ -1,0 +1,52 @@
+{
+    "kanata@gmail.com": {
+        "Nama": "Riezqu Ibnanta",
+        "Password": "",
+        "isMember": true,
+        "Transaksi": [
+            {
+                "Tanggal": "2020-12-22 23:42:37.228015",
+                "isMember": true,
+                "Jenis Billing": "VIP",
+                "Durasi Billing": 10,
+                "Biaya": 37000,
+                "Diskon Opening": 4000,
+                "Diskon Night Time": 4000,
+                "Pesanan": {
+                    "Mie": 1
+                }
+            }
+        ]
+    },
+    "kanatan@gmail.com": {
+        "Nama": "Amane Kanata",
+        "Password": "kanata123",
+        "isMember": true,
+        "Transaksi": []
+    },
+    "test@example.com": {
+        "Nama": "Example",
+        "Password": "1",
+        "isMember": false,
+        "Transaksi": []
+    },
+    "cintania@gmail.com": {
+        "Nama": "cinta",
+        "Password": "1234",
+        "isMember": true,
+        "Transaksi": [
+            {
+                "Tanggal": "2020-12-23 13:14:34.267636",
+                "isMember": true,
+                "Jenis Billing": "VIP",
+                "Durasi Billing": 5,
+                "Biaya": 28000,
+                "Diskon Opening": 2000,
+                "Diskon Night Time": 0,
+                "Pesanan": {
+                    "Mie": 2
+                }
+            }
+        ]
+    }
+}
