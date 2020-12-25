@@ -5,6 +5,8 @@
 #- sama = -> sama rata
 #encryption
 #potongan biaya pesanan
+#kapan daftar member ?
+#kapan registrasi ?
 
 '''
 DOKUMENTASI
@@ -314,6 +316,7 @@ def page_transaksi(data, email):
 	writeJSON(data, filename)
 	printNota(nota)
 
+
 def page_data_transaksi_rincian(index, data, email):
 	nota = [
 	["Nama", data[email]['Nama']]
@@ -406,8 +409,75 @@ def page_data_transaksi(data, email):
 		else:
 			print('Nomor yang anda masukkan tidak ada dalam menu.')
 
-def page_pengaturanAkun(data, email):
+#page pengaturan akun
+def page_pengaturanAkun_gNama(data, email):
+	global filename
+
+	os.system("cls")
+	printHeader()
+	print("============== Ganti Nama ==============")
+	print('Tekan CTRL + C untuk membatalkan')
+	print("{:<19} : {}".format('Nama sekarang', data[email]['Nama']))
+	try:
+		namaBaru = input("{:<19} : ".format('Nama baru'))
+		while True:
+			confirm = input("Nama akan diganti menjadi {}, apakah anda yakin ? [y/t] ".format(namaBaru))
+			if confirm == 'y':
+				data[email]['Nama'] = namaBaru
+				writeJSON(data, filename)
+				print("Nama telah berhasil diganti.")
+				input('(tekan enter untuk kembali)')
+				return
+			elif confirm == 't':
+				print("Ganti nama dibatalkan")
+				input('(tekan enter untuk kembali)')
+				return
+			else:
+				print("Input tidak valid.")
+	except KeyboardInterrupt:
+		print("Ganti nama dibatalkan.")
+		input('(tekan enter untuk kembali)')
+		return
+
+def page_pengaturanAkun_gPassword(data, email):
 	pass
+
+def page_pengaturanAkun_gEmail(data, email):
+	pass
+
+def page_pengaturanAkun_hAkun(data, email):
+	pass
+
+def page_pengaturanAkun(data, email):
+	while True:
+		os.system("cls")
+		printHeader()
+		txt = "============== Pengaturan Akun =============="
+		print(txt)
+		print('{0:^{1}s}'.format("Data akun", len(txt)))
+		print('{:<19s} : {}'.format('Nama', data[email]['Nama']))
+		print('{:<19s} : {}'.format('Email', email))
+		print('{:<19s} : {}'.format('Tanggal Registrasi', data[email]['Tanggal Daftar']))
+		print()
+		print("1. Ganti nama")
+		print("2. Ganti password")
+		print("3. Ganti email")
+		print("4. Hapus akun")
+		print("0. Kembali")
+		print()
+		pilihan = input("Pilih Menu : ")
+		print()
+
+		if pilihan == '1':
+			page_pengaturanAkun_gNama(data, email)
+		elif pilihan == '2':
+			page_pengaturanAkun_gPassword(data, email)
+		elif pilihan == '3':
+			page_pengaturanAkun_gEmail(data, email)
+		elif pilihan == '4':
+			page_pengaturanAkun_hAkun(data, email)
+		elif pilihan == '0':
+			return
 
 def mainMenu(data, email):
 	while True:
@@ -480,6 +550,7 @@ def register(data):
 			dataBaru['Nama'] = input("Nama : ")
 			dataBaru['Password'] = input("Password : ")
 			dataBaru['isMember'] = False
+			dataBaru['Tanggal Daftar'] = '{}'.foramt(dt.now())
 			dataBaru['Transaksi'] = list()
 			data[email] = dataBaru
 			writeJSON(data, filename)
