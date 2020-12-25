@@ -440,7 +440,28 @@ def page_pengaturanAkun_gNama(data, email):
 		return
 
 def page_pengaturanAkun_gPassword(data, email):
-	pass
+	global filename
+
+	os.system("cls")
+	printHeader()
+	print("============== Ganti Password ==============")
+	print('Tekan CTRL + C untuk membatalkan')
+	try:
+		while True:
+			passBaru = input("{:<26} : ".format('Password baru'))
+			konfirmasiPassBaru = input("{:<26} : ".format('Konfirmasi Password baru'))
+			if passBaru == konfirmasiPassBaru:
+				data[email]['Password'] = passBaru
+				writeJSON(data, filename)
+				print("Password berhasil diperbarui.")
+				input('(tekan enter untuk kembali)')
+				return
+			else:
+				print("Password tidak sama.")
+	except KeyboardInterrupt:
+		print("Ganti password dibatalkan.")
+		input('(tekan enter untuk kembali)')
+		return
 
 def page_pengaturanAkun_gEmail(data, email):
 	pass
