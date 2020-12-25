@@ -492,7 +492,32 @@ def page_pengaturanAkun_gEmail(data, email):
 		return email
 
 def page_pengaturanAkun_hAkun(data, email):
-	pass
+	global filename
+
+	os.system("cls")
+	printHeader()
+	print("============== Hapus Akun ==============")
+	print('Tekan CTRL + C untuk membatalkan')
+	try:
+		while True:
+			yakin = input('Apakah anda yakin untuk menghapus akun ? [y/t] ')
+			if yakin == 'y':
+				del data[email]
+				writeJSON(data, filename)
+				print("Akun berhasil dihapus.")
+				input('(tekan enter untuk kembali)')
+				data = openJSON_as_dict(filename)
+				main(data)
+			elif yakin == 't':
+				print("Hapus akun dibatalkan.")
+				input('(tekan enter untuk kembali)')
+				return
+			else:
+				print("Input tidak valid.")
+	except KeyboardInterrupt:
+		print("Hapus akun dibatalkan.")
+		input('(tekan enter untuk kembali)')
+		return
 
 def page_pengaturanAkun(data, email):
 	while True:
@@ -624,7 +649,7 @@ def main(data):
 		elif pilihan == '2':
 			register(data)
 		elif pilihan == '0':
-			return
+			exit()
 		else:
 			print("Menu tidak tersedia")
 
