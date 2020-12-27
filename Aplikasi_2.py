@@ -392,6 +392,8 @@ def page_data_transaksi(data, email):
 		#tambahin no
 		x.insert(0, i+1)
 		table.append(x)
+	#remove pesanan
+	del table[0][len(table[0])-1]
 	printTable(table)
 
 	while True:
