@@ -67,6 +67,7 @@ import os
 import re
 
 filename = 'customer.json'
+kunci = "202410102089_202410103012"
 
 #harga
 hargaMembership = 30000
@@ -131,11 +132,23 @@ def printNota(data, typeP=0):
 	print('(tekan apa saja untuk lanjut)')
 	input()
 
-def openJSON_as_dict(filename):
-    with open(filename, 'r') as f: return json.load(f)
+def xor(bytearr):
+	pos = 0
+	bytearr = list(bytearr)
+	for i in range(len(bytearr)):
+		bytearr[i] = bytearr[i] ^ ord(kunci[pos])
+		pos = (pos + 1) % len(kunci)
+	bytearr = bytes(bytearr)
+	return bytearr
 
-def writeJSON(data, file) :
-    with open(file, 'w') as f : json.dump(data, f, indent=4)
+def openJSON_as_dict(filename):
+    with open(filename, 'rb') as f:
+    	return eval(xor(f.read()).decode('utf-8'))
+
+def writeJSON(data, filename):
+	with open(filename, 'wb') as f:
+		e = str(data).encode('utf-8')
+		f.write(xor(e))
 
 #pages
 def page_membership(data, email):
