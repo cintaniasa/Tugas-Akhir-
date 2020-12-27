@@ -62,7 +62,6 @@ Halaman untuk mengolah pengaturan akun
 '''
 
 from datetime import datetime as dt
-import json
 import os
 import re
 
@@ -136,10 +135,9 @@ def xor(bytearr):
 	pos = 0
 	bytearr = list(bytearr)
 	for i in range(len(bytearr)):
-		bytearr[i] = bytearr[i] ^ ord(kunci[pos])
+		bytearr[i] ^= ord(kunci[pos])
 		pos = (pos + 1) % len(kunci)
-	bytearr = bytes(bytearr)
-	return bytearr
+	return bytes(bytearr)
 
 def openJSON_as_dict(filename):
     with open(filename, 'rb') as f:
