@@ -486,6 +486,9 @@ def page_pengaturanAkun_gEmail(data, email):
 	try:
 		while True:
 			emailBaru = input("{:<26} : ".format('Email baru'))
+			if not(validateEmail(email)):
+				print("Email tidak valid")
+				continue
 			if emailBaru in data:
 				print("Email telah digunakan. Silahkan cari yang berbeda.")
 				continue
