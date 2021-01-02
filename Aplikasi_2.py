@@ -62,6 +62,7 @@ Halaman untuk mengolah pengaturan akun
 '''
 
 from datetime import datetime as dt
+import time
 import os
 import re
 
@@ -264,7 +265,7 @@ def page_transaksi(data, email):
 						print("{}. {:<5s} : {}".format(i + 1, j[0], j[1]))
 					print()
 					try:
-						pilihan_2 = int(input("Silahkan pilih : "))
+						pilihan_2 = int(input("Silahkan pilih (angka) : "))
 						if pilihan_2 < 1 :
 							print("Angka tidak valid.")
 							continue
@@ -461,6 +462,12 @@ def page_pengaturanAkun_gPassword(data, email):
 	print('Tekan CTRL + C untuk membatalkan')
 	try:
 		while True:
+				password = input("Masukkan password lama : ")
+				if password != data[email]['Password']:
+					print("Password salah")
+				else:
+					break
+		while True:
 			passBaru = input("{:<26} : ".format('Password baru'))
 			konfirmasiPassBaru = input("{:<26} : ".format('Konfirmasi Password baru'))
 			if passBaru == konfirmasiPassBaru:
@@ -486,7 +493,7 @@ def page_pengaturanAkun_gEmail(data, email):
 	try:
 		while True:
 			emailBaru = input("{:<26} : ".format('Email baru'))
-			if not(validateEmail(email)):
+			if not(validateEmail(emailBaru)):
 				print("Email tidak valid")
 				continue
 			if emailBaru in data:
@@ -608,6 +615,7 @@ def login(data):
 			email = input("Email : ")
 			if not(email in data): 
 				print("Email tidak terdaftar.")
+				time.sleep(1)
 				continue
 			while True:
 				password = input("Pass : ")
@@ -633,14 +641,17 @@ def register(data):
 			email = input("Email : ")
 			if not(validateEmail(email)):
 				print("Email tidak valid")
+				time.sleep(1)
+				continue
 			if email in data:
 				print("Email sudah terdaftar.")
+				time.sleep(1)
 				continue
 
 			dataBaru['Nama'] = input("Nama : ")
 			dataBaru['Password'] = input("Password : ")
 			dataBaru['isMember'] = False
-			dataBaru['Tanggal Daftar'] = '{}'.foramt(dt.now())
+			dataBaru['Tanggal Daftar'] = '{}'.format(dt.now())
 			dataBaru['Transaksi'] = list()
 			data[email] = dataBaru
 			writeJSON(data, filename)
