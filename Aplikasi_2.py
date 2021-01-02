@@ -566,10 +566,13 @@ def page_pengaturanAkun(data, email):
 
 		if pilihan == '1':
 			page_pengaturanAkun_gNama(data, email)
+			main(data, 'Nama telah diganti, silahkan login kembali.')
 		elif pilihan == '2':
 			page_pengaturanAkun_gPassword(data, email)
+			main(data, 'Password telah diganti, silahkan login kembali.')
 		elif pilihan == '3':
 			email = page_pengaturanAkun_gEmail(data, email)
+			main(data, 'Email telah diganti, silahkan login kembali.')
 		elif pilihan == '4':
 			page_pengaturanAkun_hAkun(data, email)
 		elif pilihan == '0':
@@ -664,9 +667,11 @@ def register(data):
 		except KeyboardInterrupt:
 			return
 
-def main(data):
+def main(data, ganti=''):
 	while True:
 		os.system("cls")
+		if ganti != '':
+			print(ganti)
 		printHeader()
 		print("1. Login")
 		print("2. Daftar")
