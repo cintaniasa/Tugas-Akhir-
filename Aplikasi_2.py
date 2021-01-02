@@ -182,6 +182,53 @@ def page_membership(data, email):
 			else:
 				print('Nomor yang anda masukkan tidak ada dalam menu.')
 
+def page_pesanan():
+	pesanan = dict()
+	while True:
+		pilihan = input("Apakah anda ingin memesan makanan / minuman ? [y/t] ")
+		if pilihan == 'y':
+			#pesen makanan, gak tak jadiin fungsi
+			isPesan = 'y'
+			while True:
+				if isPesan == 'y':
+					print("Daftar Harga")
+					for i, j in enumerate(hargaMakananMinuman):
+						print("{}. {:<5s} : {}".format(i + 1, j[0], j[1]))
+					print()
+					try:
+						pilihan_2 = int(input("Silahkan pilih (angka) : "))
+						if pilihan_2 < 1 :
+							print("Angka tidak valid.")
+							continue
+						print()
+						pilihan_3 = int(input("Jumlah : "))
+						if pilihan_3 < 1 :
+							print("Angka tidak valid")
+					except ValueError:
+						print("Angka tidak valid.")
+						continue
+					except IndexError:
+						print("Pilihan tidak valid.")
+						continue
+					#cek sebelumnya jika emang udah pesen (nambah quantity)
+					if hargaMakananMinuman[pilihan_2 - 1][0] in pesanan:
+						pesanan[hargaMakananMinuman[pilihan_2 - 1][0]] += pilihan_3
+					else:
+						pesanan[hargaMakananMinuman[pilihan_2 - 1][0]] = pilihan_3
+					print("{} sebanyak {} berhasil ditambahkan dengan total harga Rp {:0,.0f}".format(hargaMakananMinuman[pilihan_2 - 1][0], pilihan_3, pilihan_3 * hargaMakananMinuman[pilihan_2 - 1][1]))
+					
+				elif isPesan == 't':
+					break
+				else:
+					print("Input tidak valid.")
+				isPesan = input("Apakah ada pesanan lagi ? [y/t] ")
+			break
+		elif pilihan == 't':
+			break
+		else:
+			print("Input salah.")
+	return pesanan
+
 def page_transaksi(data, email):
 	global potonganOpening
 	global maxPotonganOpening
@@ -250,52 +297,7 @@ def page_transaksi(data, email):
 	newT['Diskon Opening'] = potongan_1
 	newT['Diskon Night Time'] = potongan_2
 
-	newT['Pesanan'] = dict()
-
-	#pesanan
-	while True:
-		pilihan = input("Apakah anda ingin memesan makanan / minuman ? [y/t] ")
-		if pilihan == 'y':
-			#pesen makanan, gak tak jadiin fungsi
-			isPesan = 'y'
-			while True:
-				if isPesan == 'y':
-					print("Daftar Harga")
-					for i, j in enumerate(hargaMakananMinuman):
-						print("{}. {:<5s} : {}".format(i + 1, j[0], j[1]))
-					print()
-					try:
-						pilihan_2 = int(input("Silahkan pilih (angka) : "))
-						if pilihan_2 < 1 :
-							print("Angka tidak valid.")
-							continue
-						print()
-						pilihan_3 = int(input("Jumlah : "))
-						if pilihan_3 < 1 :
-							print("Angka tidak valid")
-					except ValueError:
-						print("Angka tidak valid.")
-						continue
-					except IndexError:
-						print("Pilihan tidak valid.")
-						continue
-					#cek sebelumnya jika emang udah pesen (nambah quantity)
-					if hargaMakananMinuman[pilihan_2 - 1][0] in newT['Pesanan']:
-						newT['Pesanan'][hargaMakananMinuman[pilihan_2 - 1][0]] += pilihan_3
-					else:
-						newT['Pesanan'][hargaMakananMinuman[pilihan_2 - 1][0]] = pilihan_3
-					print("{} sebanyak {} berhasil ditambahkan dengan total harga Rp {:0,.0f}".format(hargaMakananMinuman[pilihan_2 - 1][0], pilihan_3, pilihan_3 * hargaMakananMinuman[pilihan_2 - 1][1]))
-					
-				elif isPesan == 't':
-					break
-				else:
-					print("Input tidak valid.")
-				isPesan = input("Apakah ada pesanan lagi ? [y/t] ")
-			break
-		elif pilihan == 't':
-			break
-		else:
-			print("Input salah.")
+	newT['Pesanan'] = page_pesanan()
 	
 	#nota
 	nota = [
