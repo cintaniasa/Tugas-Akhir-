@@ -36,6 +36,9 @@ menulis 'file'.json dengan data dari parameter data
 page_membership(data, email):
 Halaman untuk mengolah cek membership.
 
+page_pesanan()
+Halaman untuk menampung pesanan makanan dan minuman
+
 page_transaksi(data,email):
 Halaman untuk mengolah pembuatan transaksi.
 
