@@ -7,6 +7,7 @@
 #potongan biaya pesanan
 #kapan daftar member ?
 #kapan registrasi ?
+# batal edit gausa kembali ke main page
 
 '''
 DOKUMENTASI
@@ -569,7 +570,6 @@ def page_pengaturanAkun(data, email):
 
 		if pilihan == '1':
 			page_pengaturanAkun_gNama(data, email)
-			main(data, 'Nama telah diganti, silahkan login kembali.')
 		elif pilihan == '2':
 			page_pengaturanAkun_gPassword(data, email)
 			main(data, 'Password telah diganti, silahkan login kembali.')
