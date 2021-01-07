@@ -138,7 +138,7 @@ def openJSON_as_dict(filename):
 	try:
 		with open(filename, 'rb') as f:
 			return eval(xor(f.read()).decode('utf-8'))
-    except FileNotFoundError:
+	except FileNotFoundError:
 		writeJSON('', filename)
 		return dict()
 
