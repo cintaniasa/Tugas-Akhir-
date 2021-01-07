@@ -1,10 +1,3 @@
-#to do:
-#pengaturan akun -> ganti nama, ganti pass, ganti email
-#lupa password
-#delete pesanan json ikut keprint soal e
-#- sama = -> sama rata
-#encryption
-
 '''
 DOKUMENTASI
 1. List Function dan atau lambda
@@ -54,8 +47,9 @@ Halaman untuk mengolah bagian login
 register(data):
 Halaman untuk mengolah bagian pendaftaran
 
-main(data):
+main(data, ganti=''):
 Halaman yang ditampilkan pertama kali
+parameter ganti untuk menampilkan pesan
 
 page_pengaturanAkun(data, email):
 Halaman untuk mengolah pengaturan akun
