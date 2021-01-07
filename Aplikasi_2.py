@@ -4,10 +4,6 @@
 #delete pesanan json ikut keprint soal e
 #- sama = -> sama rata
 #encryption
-#potongan biaya pesanan
-#kapan daftar member ?
-#kapan registrasi ?
-# batal edit gausa kembali ke main page
 
 '''
 DOKUMENTASI
@@ -145,8 +141,12 @@ def xor(bytearr):
 	return bytes(bytearr)
 
 def openJSON_as_dict(filename):
-    with open(filename, 'rb') as f:
-    	return eval(xor(f.read()).decode('utf-8'))
+	try:
+		with open(filename, 'rb') as f:
+			return eval(xor(f.read()).decode('utf-8'))
+    except FileNotFoundError:
+		writeJSON('', filename)
+		return dict()
 
 def writeJSON(data, filename):
 	with open(filename, 'wb') as f:
